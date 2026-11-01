@@ -3436,6 +3436,10 @@ def test_reset_puts_the_nodes_back_where_the_layout_had_them(
     window = _reconstructed(qt_app, campaign)
     home = dict(window._canvas.positions)
     _nudged(window)
+    # Pressing on a node selects it, and selecting one loads its log lines on
+    # the pool. Unwaited, that load outlived the test on a loaded machine and
+    # failed the rebuild twice.
+    settled(qt_app)
 
     window._reset_layout_action.trigger()
 
